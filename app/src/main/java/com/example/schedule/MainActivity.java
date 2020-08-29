@@ -1,6 +1,8 @@
 package com.example.schedule;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -12,12 +14,15 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 
 import static com.example.schedule.utils.NetworkUtils.generateURL;
 import static com.example.schedule.utils.NetworkUtils.getResponseFromURL;
+import static com.example.schedule.ListAdapter.*;
 
 public class MainActivity extends AppCompatActivity {
-    private TextView text;
+    RecyclerView listButton;
+
 
     class QueryTask extends AsyncTask<URL, Void, String> {
         // Вызов на получение данных из потока по указанному url
@@ -31,15 +36,14 @@ public class MainActivity extends AppCompatActivity {
             }
             return response;
         }
+
         //////////////////// Вывод данных в Вью
         @Override
         protected  void  onPostExecute(String response){
-            String Infoid = null;
-            String Infoname = null;
             String id = null;
             String name = null;
 
-// повышение универсальности
+// повышение универсальности для парсирования
             if( response.indexOf("idDivision") != - 1) {
                 id = "idDivision";
                 name = "titleDivision";
@@ -51,7 +55,10 @@ public class MainActivity extends AppCompatActivity {
                 name = "title";
             }
 
-            String Inforesponse= "";
+            String Infoid = null;
+            String Infoname = null;
+            int IntInfoid = 0;
+            ArrayList<Catalogue> catalogue = new ArrayList<Catalogue>();
 
             try {
                 JSONArray jsonArray = new JSONArray(response);// Получение массива
@@ -60,41 +67,49 @@ public class MainActivity extends AppCompatActivity {
                     JSONObject Info = jsonArray.getJSONObject(i);// Получение iого обьекта
 
                     Infoid = Info.getString(id); // получение id
+                    IntInfoid = Integer.parseInt(Infoid); // получение id в числовом виде
                     Infoname = Info.getString(name);// получение информации или имени
 
-                    Inforesponse += "Id" + Infoid + "Name" + Infoname + "\n";// Строка с парсированными данными
+                    if(Infoid.equals(Infoname)){ Infoname = Infoname + " курс";} // Для курса
+
+                    catalogue.add(new Catalogue(Infoname, IntInfoid));// Добавление в Каталог
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+            ListAdapter listAdapter = new ListAdapter(catalogue);// Создание Адаптера
+            listButton.setAdapter(listAdapter);// Подключение Адаптера
 
-            text.setText(Inforesponse);
+
         }
     }
- 
-
+    
     //////////////////////////////////////////////////////////
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        text = findViewById(R.id.text_url);
-        // Проверка вывода URL
-        String one = "154/", two = "2/", gr = null;
-        int t = 2;
+        listButton = findViewById(R.id.list_button);// Нахождение RecyclerView
 
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this); // Отображение Вью
+        listButton.setLayoutManager(layoutManager); // Подключение Менеджера
+        listButton.setHasFixedSize(true);// Добавление фиксированной длинны
+
+        String one = "154/", two = "2/", gr = null;
+        int t = 0;
+
+        // Определение констант для генерации url
         switch (t){
-            case 0: gr = "divisionlistforstuds"; break;
-            case 1: gr = "kurslist"; break;
+            case 0: gr = "divisionlistforstuds"; one = ""; two = ""; break;
+            case 1: gr = "kurslist"; two = ""; break;
             case 2: gr = "grouplist"; break;
-            case 3: gr = "///1597017600865/printschedule"; break;
+            case 3: gr = "///1597017600865/printschedule"; one = ""; two = ""; break;
         }
 
-        URL generatedUrl = generateURL(one, two, gr);
+        URL generatedUrl = generateURL(one, two, gr); // Генерация url
 
         new QueryTask().execute(generatedUrl); //Обращение к классу выше
-
-        //
     }
 }
