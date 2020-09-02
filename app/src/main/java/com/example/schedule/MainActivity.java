@@ -16,15 +16,13 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 
-import static com.example.schedule.utils.NetworkUtils.generateURL;
 import static com.example.schedule.utils.NetworkUtils.getResponseFromURL;
-import static com.example.schedule.ListAdapter.*;
 
 public class MainActivity extends AppCompatActivity {
-    RecyclerView listButton;
+    static RecyclerView listButton;
 
 
-    class QueryTask extends AsyncTask<URL, Void, String> {
+    static class QueryTask extends AsyncTask<URL, Void, String> {
         // Вызов на получение данных из потока по указанному url
         @Override
         protected String doInBackground(URL... urls) {
@@ -90,26 +88,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         listButton = findViewById(R.id.list_button);// Нахождение RecyclerView
-
-
         LinearLayoutManager layoutManager = new LinearLayoutManager(this); // Отображение Вью
         listButton.setLayoutManager(layoutManager); // Подключение Менеджера
         listButton.setHasFixedSize(true);// Добавление фиксированной длинны
 
-        String one = "154/", two = "2/", gr = null;
-        int t = 0;
+        String one = "154/", two = "2/";
+        int  t = 2;
 
+        t = CreateNewListOfButton.CreateButton(t, one, two);
         // Определение констант для генерации url
-        switch (t){
-            case 0: gr = "divisionlistforstuds"; one = ""; two = ""; break;
-            case 1: gr = "kurslist"; two = ""; break;
-            case 2: gr = "grouplist"; break;
-            case 3: gr = "///1597017600865/printschedule"; one = ""; two = ""; break;
-        }
 
-        URL generatedUrl = generateURL(one, two, gr); // Генерация url
-
-        new QueryTask().execute(generatedUrl); //Обращение к классу выше
     }
+
 }

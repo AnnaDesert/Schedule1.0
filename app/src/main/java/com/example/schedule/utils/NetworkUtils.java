@@ -12,8 +12,8 @@ import java.util.Scanner;
 public class NetworkUtils {
     private static final String SCHEDULE_URL = "http://oreluniver.ru/schedule/";
 // Создаёт URL из трёх переменных. Перая и втроая - id, третья постоянная.
-    public static URL generateURL(String userIdone, String userIdtwo, String urlconst){
-        Uri builtUri = Uri.parse(SCHEDULE_URL + userIdone + userIdtwo + urlconst);
+    public static URL generateURL(String userIdone,  String urlconst){
+        Uri builtUri = Uri.parse(SCHEDULE_URL + userIdone + urlconst);
 
         URL url = null;
         try {
