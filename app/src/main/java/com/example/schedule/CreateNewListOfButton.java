@@ -5,19 +5,20 @@ import java.net.URL;
 import static com.example.schedule.utils.NetworkUtils.generateURL;
 
 public class CreateNewListOfButton {
-    public static int CreateButton(int t, String one, String two) {
-        String gr = null;
+    static String gr = null;
 
-        switch (t){
-            case 0: gr = "divisionlistforstuds"; one = ""; t++; break;
-            case 1: gr = "kurslist";  t++; break;
-            case 2: gr = "grouplist"; one += two; t++; break;
-            case 3: gr = "///1597017600865/printschedule"; one = ""; t = 0; break;
+    public static int CreateButton( String one) {
+        switch (MainActivity.t){
+            case 0: gr = "divisionlistforstuds"; one = ""; MainActivity.t++; break;
+            case 1: gr = "kurslist";  MainActivity.three = one;  MainActivity.t++; break;
+            case 2: gr = "grouplist"; MainActivity.three += one; one = MainActivity.three; MainActivity.t++; break;
+            case 3: gr = "///1597017600865/printschedule"; one = ""; MainActivity.three = ""; MainActivity.t = 0; break;
         }
+       // System.out.println("three  " + MainActivity.three);
 
         URL generatedUrl = generateURL(one, gr); // Генерация url
         new MainActivity.QueryTask().execute(generatedUrl); //Обращение к классу выше
 
-        return t;// Возвращает счётчик
+        return MainActivity.t;// Возвращает счётчик НУЖНО ЛИ??????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????:?аааааааааааааааааааААААААААААААААААААААА
     }
 }

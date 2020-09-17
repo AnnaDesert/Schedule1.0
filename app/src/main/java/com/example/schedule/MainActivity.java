@@ -20,8 +20,10 @@ import static com.example.schedule.utils.NetworkUtils.getResponseFromURL;
 
 public class MainActivity extends AppCompatActivity {
     static RecyclerView listButton;
+    public  static int  t = 0;
+    static String three = "";
 
-
+///////////////////////////////////////////////////////////////////////////////////////////////
     static class QueryTask extends AsyncTask<URL, Void, String> {
         // Вызов на получение данных из потока по указанному url
         @Override
@@ -94,10 +96,10 @@ public class MainActivity extends AppCompatActivity {
         listButton.setLayoutManager(layoutManager); // Подключение Менеджера
         listButton.setHasFixedSize(true);// Добавление фиксированной длинны
 
-        String one = "154/", two = "2/";
-        int  t = 2;
+        String one = "";
 
-        t = CreateNewListOfButton.CreateButton(t, one, two);
+
+        t = CreateNewListOfButton.CreateButton( one);
         // Определение констант для генерации url
 
     }

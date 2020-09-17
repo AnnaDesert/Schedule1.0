@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder>{
-    ArrayList<Catalogue> catalogue;
+    static ArrayList<Catalogue> catalogue;
 
     public ListAdapter(ArrayList<Catalogue> catalogue){
         this.catalogue = catalogue;
@@ -22,10 +22,22 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
 //////////////////////////////////////////////////////////////
     class ListViewHolder extends RecyclerView.ViewHolder{
         Button button;
-        public ListViewHolder(@NonNull View view) {
-            super(view);
-            button = (Button) view.findViewById(R.id.button_of_list);
+        public ListViewHolder(@NonNull View itemView) {
+            super(itemView);
+            ArrayList<Catalogue> catalogue;
+            button = (Button) itemView.findViewById(R.id.button_of_list);
 
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //System.out.println("Позиция элемента " + ListAdapter.catalogue.get(getAdapterPosition()).getTextForButton() + " Id " + ListAdapter.catalogue.get(getAdapterPosition()).getIdForButton()) ;
+
+                    CreateNewListOfButton.CreateButton(
+                            ListAdapter.catalogue.
+                            get(getAdapterPosition()).
+                            getIdForButton() + "/");
+                }
+            });
         }
     }
 ////////////////////////////////////////////////////////////////////
