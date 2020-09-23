@@ -4,6 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -23,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     public  static int  t = 0;
     static String three = "";
 
-///////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////
     static class QueryTask extends AsyncTask<URL, Void, String> {
         // Вызов на получение данных из потока по указанному url
         @Override
@@ -90,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        GGManager.setContext(this);
 
         listButton = findViewById(R.id.list_button);// Нахождение RecyclerView
         LinearLayoutManager layoutManager = new LinearLayoutManager(this); // Отображение Вью
@@ -102,6 +106,17 @@ public class MainActivity extends AppCompatActivity {
         t = CreateNewListOfButton.CreateButton( one);
         // Определение констант для генерации url
 
+    }
+    public static class GGManager {
+        private static Context context;
+
+        public static Context getContext() {
+            return context;
+        }
+
+        public static void setContext(Context context) {
+            GGManager.context = context;
+        }
     }
 
 }

@@ -1,6 +1,7 @@
 package com.example.schedule;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +31,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
                     //System.out.println("Позиция элемента " + ListAdapter.catalogue.get(getAdapterPosition()).getTextForButton() + " Id " + ListAdapter.catalogue.get(getAdapterPosition()).getIdForButton()) ;
 
                     CreateNewListOfButton.CreateButton(
