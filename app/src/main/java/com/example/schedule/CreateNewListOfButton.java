@@ -16,7 +16,7 @@ public class CreateNewListOfButton {
             case 2: gr = "grouplist"; MainActivity.three += one; one = MainActivity.three; MainActivity.t++; break;
             case 3: gr = "///1597017600865/printschedule"; MainActivity.three = ""; MainActivity.t = 0;
                 Intent intent = new Intent( MainActivity.GGManager.getContext(), Table.class);
-                intent.putExtra("STRING_I_NEED", one);
+                intent.putExtra("GROUPURL", one);
                 MainActivity.GGManager.getContext().startActivity(intent); break;
         }
        // System.out.println("three  " + MainActivity.three);
