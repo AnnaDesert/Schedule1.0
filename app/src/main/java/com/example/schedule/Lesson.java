@@ -51,4 +51,6 @@ public class Lesson {
     public int getDay(){ return day; }
 
     public  int getNumber(){ return number; }
+
+
 }

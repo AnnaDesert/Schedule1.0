@@ -47,34 +47,40 @@ String groupurl;
             int number;
             int day;
 
+
             ArrayList<Lesson> Week = new ArrayList<>();
 
-            try {
-                JSONObject jsonObject = new JSONObject(response);
+            if(response.equals("[]"))   { Table.text.setText("Расписания нет"); }
+            else {
+                try {
 
-                for(int i = 0; i < jsonObject.length(); i++) {
-                    JSONObject Info = jsonObject.getJSONObject(String.valueOf(i));
+                    JSONObject jsonObject = new JSONObject(response);
 
-                    subgroup = Info.getString("NumberSubGruop"); // получение id
-                    name_lesson = Info.getString("TitleSubject");
-                    type_lesson = Info.getString("TypeLesson");
-                    number = Info.getInt("NumberLesson");
-                    day = Info.getInt("DayWeek");
-                    building = Info.getString("Korpus");
-                    room = Info.getString("NumberRoom");
-                    Family = Info.getString("Family");
-                    Name = Info.getString("Name");
-                    Secondname = Info.getString("SecondName");
+                    for (int i = 0; i < jsonObject.length(); i++) {
+                        JSONObject Info = jsonObject.getJSONObject(String.valueOf(i));
 
-                    Week.add(number - 1, new Lesson(subgroup,  name_lesson,
-                            type_lesson,  building,
-                            room,  Family,  Name,  Secondname, day, number));
+                        subgroup = Info.getString("NumberSubGruop"); // получение id
+                        name_lesson = Info.getString("TitleSubject");
+                        type_lesson = Info.getString("TypeLesson");
+                        number = Info.getInt("NumberLesson");
+                        day = Info.getInt("DayWeek");
+                        building = Info.getString("Korpus");
+                        room = Info.getString("NumberRoom");
+                        Family = Info.getString("Family");
+                        Name = Info.getString("Name");
+                        Secondname = Info.getString("SecondName");
+
+                            Week.add(i, new Lesson(subgroup, name_lesson,
+                                    type_lesson, building,
+                                    room, Family, Name, Secondname, day, number));
+
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-
-            } catch (JSONException e) {
-                e.printStackTrace();
+                Table.text.setText("Пара: " + Week.get(8).getFull_name_lesson() + "\n" + Week.get(9).getFull_name_lesson());
             }
-            Table.text.setText(Week.get(7).getFull_name_lesson());
         }
     }
 
