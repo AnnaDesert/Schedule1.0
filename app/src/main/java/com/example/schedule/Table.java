@@ -2,24 +2,34 @@ package com.example.schedule;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+
 import android.os.Bundle;
 import android.widget.TextView;
+
 
 import java.util.Calendar;
 import java.util.Date;
 
+
 public class Table extends AppCompatActivity {
 TextView text;
 String groupurl;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_table);
+
         text = findViewById(R.id.textV);
         Bundle extras = getIntent().getExtras();
         groupurl = extras.getString("GROUPURL"); // get id group
-        text.setText(groupurl); // enter id group for check it out
+
+        text.setText("fhfjdfhbd");
+        //text.setText("/" + groupurl + "//" + DateMonday() + "/printschedule");
+       // URL generatedUrl = generateURL(, ""); // Генерация url
+       // new ScheduleTask().execute(generatedUrl); //Обращение к классу выше
     }
+
     public String DateMonday(){
         Date nowdate = new Date();// текущая дата
 
@@ -37,4 +47,6 @@ String groupurl;
 
         return timestamp + "/";
     }
+
+
 }
