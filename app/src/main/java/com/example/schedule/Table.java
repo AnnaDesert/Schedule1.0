@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Html;
 import android.widget.TextView;
 
 import org.json.JSONException;
@@ -79,7 +80,7 @@ String groupurl;
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                Table.text.setText("Пара: " + Week.get(8).getFull_name_lesson() + "\n" + Week.get(9).getFull_name_lesson());
+                Table.text.setText(Html.fromHtml(Week.get(3).getFull_name_lesson()));
             }
         }
     }
@@ -96,7 +97,7 @@ String groupurl;
         //new MainActivity.QueryTask().execute(generatedUrl);
         new SceduleTask().execute(generatedUrl);
     }
-    public String DateMonday(){
+    public static String DateMonday(){
         Date nowdate = new Date();// текущая дата
 
         Calendar calendar = Calendar.getInstance();

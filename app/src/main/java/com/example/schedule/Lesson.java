@@ -29,15 +29,15 @@ public class Lesson {
         this.number = number;
 
         if (subgroup.equals("0"))
-            full_name_lesson = name_lesson + " (" + type_lesson + ")\n" + Family + " " + Name.charAt(0) + "." + Secondname.charAt(0) + ".";
+            full_name_lesson = "<b>" + name_lesson + "</b> (" + type_lesson + ")\n<b>" + Family + " " + Name.charAt(0) + "." + Secondname.charAt(0) + "</b>.";
         else if(type_lesson.equals(""))
-            full_name_lesson = name_lesson +  "\n" + Family + " " + Name.charAt(0) + "." + Secondname.charAt(0) + ".\n" + "подгруппа " + subgroup;
+            full_name_lesson = "<b>" +name_lesson +  "\n" + Family + " " + Name.charAt(0) + "." + Secondname.charAt(0) + "</b>.\n" + "подгруппа " + subgroup;
         else if(subgroup.equals("0")&&type_lesson.equals(""))
-            full_name_lesson = name_lesson +  "\n" + Family + " " + Name.charAt(0) + "." + Secondname.charAt(0) + ".";
+            full_name_lesson = "<b>" +name_lesson +  "\n" + Family + " " + Name.charAt(0) + "." + Secondname.charAt(0) + "</b>.";
         else
-            full_name_lesson = name_lesson + " (" + type_lesson + ")\n" + Family + " " + Name.charAt(0) + "." + Secondname.charAt(0) + ".\n" + "подгруппа " + subgroup;
+            full_name_lesson = "<b>" + name_lesson + "</b> (" + type_lesson + ")\n<b>" + Family + " " + Name.charAt(0) + "." + Secondname.charAt(0) + "</b>.\n" + "подгруппа " + subgroup;
 
-        station = "Корпус " + building + "\nаудитория" + room;
+        station = "Корпус " + building + "\nауд." + room;
     }
 
     public String getFull_name_lesson(){

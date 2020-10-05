@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
                     IntInfoid = Integer.parseInt(Infoid); // получение id в числовом виде
                     Infoname = Info.getString(name);// получение информации или имени
 
-                    if(Infoid.equals(Infoname)){ Infoname = Infoname + " курс";} // Для курса
+                    if(Infoid.equals(Infoname)){ Infoname +=" курс";} // Для курса
 
                     catalogue.add(new Catalogue(Infoname, IntInfoid));// Добавление в Каталог
                 }
@@ -118,5 +118,6 @@ public class MainActivity extends AppCompatActivity {
             GGManager.context = context;
         }
     }
+
 
 }
