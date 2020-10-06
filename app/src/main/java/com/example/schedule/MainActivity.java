@@ -1,5 +1,6 @@
 package com.example.schedule;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -9,6 +10,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -25,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     static RecyclerView listButton;
     public  static int  t = 0;
     static String three = "";
+    static String three_group = "";
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
     static class QueryTask extends AsyncTask<URL, Void, String> {
@@ -65,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
 
             try {
                 JSONArray jsonArray = new JSONArray(response);// Получение массива
-
+                Log.i("myTag","Size response: " + jsonArray.length());
                 for(int i = 0; i < jsonArray.length(); i++) {
                     JSONObject Info = jsonArray.getJSONObject(i);// Получение iого обьекта
 
@@ -95,6 +99,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         GGManager.setContext(this);
 
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
         listButton = findViewById(R.id.list_button);// Нахождение RecyclerView
         LinearLayoutManager layoutManager = new LinearLayoutManager(this); // Отображение Вью
         listButton.setLayoutManager(layoutManager); // Подключение Менеджера
@@ -119,5 +127,20 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                if (t > 1){
+                    three = three_group;
+                    t--;
+                    new QueryTask().execute(CreateNewListOfButton.url_adress[t-1]);
+                } else
+                    this.finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
 }

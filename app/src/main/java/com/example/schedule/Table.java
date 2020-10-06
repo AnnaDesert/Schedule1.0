@@ -1,10 +1,13 @@
 package com.example.schedule;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Log;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import org.json.JSONException;
@@ -33,6 +36,7 @@ String groupurl;
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            Log.i("myTag","Connect " + urls[0]);
             return response;
         }
         @Override
@@ -45,6 +49,7 @@ String groupurl;
             String Family = null;
             String Name = null;
             String Secondname = null;
+            String special = null;
             int number;
             int day;
 
@@ -57,11 +62,14 @@ String groupurl;
 
                     JSONObject jsonObject = new JSONObject(response);
 
+                    Log.i("myTag","Size response: " + jsonObject.length());
+
                     for (int i = 0; i < jsonObject.length(); i++) {
                         JSONObject Info = jsonObject.getJSONObject(String.valueOf(i));
 
                         subgroup = Info.getString("NumberSubGruop"); // получение id
                         name_lesson = Info.getString("TitleSubject");
+                        special = Info.getString("special");
                         type_lesson = Info.getString("TypeLesson");
                         number = Info.getInt("NumberLesson");
                         day = Info.getInt("DayWeek");
@@ -70,17 +78,19 @@ String groupurl;
                         Family = Info.getString("Family");
                         Name = Info.getString("Name");
                         Secondname = Info.getString("SecondName");
-
-                            Week.add(i, new Lesson(subgroup, name_lesson,
+Log.i("myTag","Parsing end \nsubgroup" + subgroup + "\nname " + name_lesson + "\nspecial " + special + "\ntype " + type_lesson + "\nnumber " + number + "\nday " + day + "\nkorpus " + building + "\nroom " + room);
+                            Week.add(i, new Lesson(subgroup, name_lesson, special,
                                     type_lesson, building,
                                     room, Family, Name, Secondname, day, number));
-
+Log.i("myTag","Size Week: " + Week.size() + "\n " + Week.get(i).getFull_name_lesson() + "\n------------------------");
                     }
+
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                Table.text.setText(Html.fromHtml(Week.get(3).getFull_name_lesson()));
+                Log.i("myTag!!!!!!!!!!!!!!!","Size Week: " + Week.size());
+                Table.text.setText(Html.fromHtml(Week.get(0).getFull_name_lesson()));
             }
         }
     }
@@ -89,6 +99,11 @@ String groupurl;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_table);
+
+        ActionBar actionBar =getSupportActionBar();
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
         text = findViewById(R.id.textV);
         Bundle extras = getIntent().getExtras();
         groupurl = extras.getString("GROUPURL"); // get id group
@@ -114,4 +129,18 @@ String groupurl;
 
         return timestamp + "/";
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                MainActivity.t = 3;
+                Log.i("myTag","Exit Table t = " + MainActivity.t + " adress " + CreateNewListOfButton.url_adress[2]);
+                this.finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
 }

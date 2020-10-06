@@ -1,43 +1,63 @@
 package com.example.schedule;
 
+import android.util.Log;
+
 public class Lesson {
-    private String subgroup;
-    private String   name_lesson;
-    private String type_lesson;
-    private String   building;
-    private String room;
-    private String   Family;
-    private String   Name;
-    private String   Secondname;
+    private String subgroup = "";
+    private String   name_lesson = "";
+    private String type_lesson = "";
+    private String   building = "";
+    private String room = "";
+    private String   Family = "";
+    private String   Name = "";
+    private String   Secondname = "";
+    private String special = "";
+
     private String full_name_lesson;
     private String station;
+
     private int day;
     private int number;
 
-    public Lesson(String subgroup,String   name_lesson,
+    public Lesson(String subgroup,String   name_lesson, String special,
                   String type_lesson,String   building,
                   String room,String   Family,String   Name, String   Secondname, int day, int number){
-        this.subgroup = subgroup;
-        this.name_lesson =name_lesson;
-        this.type_lesson = type_lesson;
-        this.building = building;
-        this.room = room;
-        this.Family = Family;
-        this.Name = Name;
-        this.Secondname = Secondname;
+
+        this.name_lesson = name_lesson + " ";
+
+        if(!special.equals("")){
+            this.special = "(" + special + ") ";
+        }
+        if(subgroup.equals("0"))
+            this.subgroup = "";
+        else
+            this.subgroup = "подгруппа " + subgroup;
+
+        if(!type_lesson.equals(""))
+            this.type_lesson = "(" + type_lesson + ")";
+        if(building.equals("0"))
+            this.building = "";
+        else
+            this.building = "Корпус " + building + "\n";
+
+        if(!room.equals("ДОТ")&&!room.equals(""))
+        this.room = "ауд" + room;
+        this.Family = Family + " ";
+
+        if(!Name.equals(""))
+            this.Name = Name.charAt(0) + ". ";
+        if(!Secondname.equals(""))
+            this.Secondname = Secondname.charAt(0) + ".";
+
         this.day = day;
         this.number = number;
 
-        if (subgroup.equals("0"))
-            full_name_lesson = "<b>" + name_lesson + "</b> (" + type_lesson + ")\n<b>" + Family + " " + Name.charAt(0) + "." + Secondname.charAt(0) + "</b>.";
-        else if(type_lesson.equals(""))
-            full_name_lesson = "<b>" +name_lesson +  "\n" + Family + " " + Name.charAt(0) + "." + Secondname.charAt(0) + "</b>.\n" + "подгруппа " + subgroup;
-        else if(subgroup.equals("0")&&type_lesson.equals(""))
-            full_name_lesson = "<b>" +name_lesson +  "\n" + Family + " " + Name.charAt(0) + "." + Secondname.charAt(0) + "</b>.";
-        else
-            full_name_lesson = "<b>" + name_lesson + "</b> (" + type_lesson + ")\n<b>" + Family + " " + Name.charAt(0) + "." + Secondname.charAt(0) + "</b>.\n" + "подгруппа " + subgroup;
+            Log.i("myTag","Lesson add " + name_lesson);
 
-        station = "Корпус " + building + "\nауд." + room;
+        full_name_lesson = "<b>" + this.name_lesson + "</b> " + this.special + this.type_lesson + "\n<b>" + this.Family + this.Name + this.Secondname + "</b>\n"+ this.subgroup;
+        station = this.building + this.room;
+
+            Log.i("myTag","Full name " + full_name_lesson + "\nstation " + station);
     }
 
     public String getFull_name_lesson(){
