@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -24,22 +25,32 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
     }
 //////////////////////////////////////////////////////////////
     class ListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        Button button;
-        public ListViewHolder(@NonNull View itemView) {
-            super(itemView);
-            ArrayList<Catalogue> catalogue;
-            button = (Button) itemView.findViewById(R.id.button_of_list);
+    Button button;
 
-            button.setOnClickListener(this);
-        }
+    float x;
+    float y;
+    String sDown;
+    String sMove;
+    String sUp;
+
+    public ListViewHolder(@NonNull View itemView) {
+        super(itemView);
+        ArrayList<Catalogue> catalogue;
+        button = (Button) itemView.findViewById(R.id.button_of_list);
+
+        button.setOnClickListener(this);
+    }
 
     @Override
     public void onClick(View view) {
+        button.setBackgroundResource(R.drawable.my_button_touch);
+        button.setTextColor(Color.parseColor("#FFFFFF"));
         CreateNewListOfButton.CreateButton(
                 ListAdapter.catalogue.
                         get(getAdapterPosition()).
                         getIdForButton() + "/");
     }
+
 }
 ////////////////////////////////////////////////////////////////////
     @NonNull

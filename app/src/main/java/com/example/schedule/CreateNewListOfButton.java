@@ -22,11 +22,12 @@ public class CreateNewListOfButton {
         }
         if(MainActivity.t > 0) {
             URL generatedUrl = generateURL(one, gr); // Генерация url
-            Log.i("myTag","Add " + url_adress[MainActivity.t-1] + " three = " + MainActivity.three + "; one = " + one + " t = " + MainActivity.t);
+//Log.i("myTag","Add " + url_adress[MainActivity.t-1] + " three = " + MainActivity.three + "; one = " + one + " t = " + MainActivity.t);
             url_adress[MainActivity.t-1] = generatedUrl;
             new MainActivity.QueryTask().execute(generatedUrl); //Обращение к классу выше//
         }
         else {
+            new MainActivity.QueryTask().execute(CreateNewListOfButton.url_adress[2]);
             Intent intent = new Intent( MainActivity.GGManager.getContext(), Table.class);
             intent.putExtra("GROUPURL", one);
             MainActivity.GGManager.getContext().startActivity(intent);

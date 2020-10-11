@@ -8,11 +8,12 @@
         android:id="@+id/button_of_list"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_margin="4dp"
-        android:textColor="#f1fcff"
+        android:layout_margin="3dp"
+        android:textColor="#2196F3"
         android:focusable="false"
         android:focusableInTouchMode="false"
         android:background="@drawable/my_button"
+        android:textSize="16sp"
 
         ></Button>
 </FrameLayout>

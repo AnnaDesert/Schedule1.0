@@ -36,7 +36,7 @@ String groupurl;
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            Log.i("myTag","Connect " + urls[0]);
+//Log.i("myTag","Connect " + urls[0]);
             return response;
         }
         @Override
@@ -62,7 +62,7 @@ String groupurl;
 
                     JSONObject jsonObject = new JSONObject(response);
 
-                    Log.i("myTag","Size response: " + jsonObject.length());
+//Log.i("myTag","Size response: " + jsonObject.length());
 
                     for (int i = 0; i < jsonObject.length(); i++) {
                         JSONObject Info = jsonObject.getJSONObject(String.valueOf(i));
@@ -78,18 +78,18 @@ String groupurl;
                         Family = Info.getString("Family");
                         Name = Info.getString("Name");
                         Secondname = Info.getString("SecondName");
-Log.i("myTag","Parsing end \nsubgroup" + subgroup + "\nname " + name_lesson + "\nspecial " + special + "\ntype " + type_lesson + "\nnumber " + number + "\nday " + day + "\nkorpus " + building + "\nroom " + room);
+//Log.i("myTag","Parsing end \nsubgroup" + subgroup + "\nname " + name_lesson + "\nspecial " + special + "\ntype " + type_lesson + "\nnumber " + number + "\nday " + day + "\nkorpus " + building + "\nroom " + room);
                             Week.add(i, new Lesson(subgroup, name_lesson, special,
                                     type_lesson, building,
                                     room, Family, Name, Secondname, day, number));
-Log.i("myTag","Size Week: " + Week.size() + "\n " + Week.get(i).getFull_name_lesson() + "\n------------------------");
+//Log.i("myTag","Size Week: " + Week.size() + "\n " + Week.get(i).getFull_name_lesson() + "\n------------------------");
                     }
 
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                Log.i("myTag!!!!!!!!!!!!!!!","Size Week: " + Week.size());
+//Log.i("myTag!!!!!!!!!!!!!!!","Size Week: " + Week.size());
                 Table.text.setText(Html.fromHtml(Week.get(0).getFull_name_lesson()));
             }
         }
@@ -135,12 +135,16 @@ Log.i("myTag","Size Week: " + Week.size() + "\n " + Week.get(i).getFull_name_les
         switch (item.getItemId()) {
             case android.R.id.home:
                 MainActivity.t = 3;
-                Log.i("myTag","Exit Table t = " + MainActivity.t + " adress " + CreateNewListOfButton.url_adress[2]);
+//Log.i("myTag","Exit Table t = " + MainActivity.t + " adress " + CreateNewListOfButton.url_adress[2]);
                 this.finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+    public void onBackPressed() {
+        finishAffinity();
+        return;
     }
 
 }
