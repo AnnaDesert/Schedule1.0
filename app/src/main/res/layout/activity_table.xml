@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Table">
-
-    <TextView
-        android:id="@+id/textV"
-        android:layout_width="wrap_content"
+    android:orientation="vertical"
+    >
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/sliding_tabs"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="42dp"
-        tools:layout_editor_absoluteY="59dp" />
-</FrameLayout>
+        app:tabMode="fixed"
+        />
+    <androidx.viewpager.widget.ViewPager
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:id="@+id/viewpager"
+        android:layout_weight="1"
+        android:background="@android:color/white"
+        />
+
+</LinearLayout>

@@ -2,6 +2,7 @@ package com.example.schedule;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -9,6 +10,8 @@ import android.text.Html;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
+
+import com.google.android.material.tabs.TabLayout;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -90,8 +93,8 @@ String groupurl;
                     e.printStackTrace();
                 }
 //Log.i("myTag!!!!!!!!!!!!!!!","Size Week: " + Week.size());
-                Table.text.setText(Html.fromHtml(Week.get(0).getFull_name_lesson()));
             }
+
         }
     }
 
@@ -100,18 +103,28 @@ String groupurl;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_table);
 
+        ViewPager viewPager = findViewById(R.id.viewpager);
+        TabLayout tabLayout = findViewById(R.id.sliding_tabs);
+        Log.i("myTag","Add ViewPage and Tab");
+
         ActionBar actionBar =getSupportActionBar();
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        text = findViewById(R.id.textV);
         Bundle extras = getIntent().getExtras();
         groupurl = extras.getString("GROUPURL"); // get id group
         //text.setText(groupurl); // enter id group for check it out
         URL generatedUrl = generateURL("/" + groupurl + "//" + DateMonday(), "printschedule");
         //new MainActivity.QueryTask().execute(generatedUrl);
         new SceduleTask().execute(generatedUrl);
+        viewPager.setAdapter(new PageAdapter(getSupportFragmentManager(),Table.this));
+        tabLayout.setupWithViewPager(viewPager);
+        Log.i("myTag","Add ViewPage inside Tab");
     }
+
+
+
+    ////////////////////////////////////////////
     public static String DateMonday(){
         Date nowdate = new Date();// текущая дата
 
