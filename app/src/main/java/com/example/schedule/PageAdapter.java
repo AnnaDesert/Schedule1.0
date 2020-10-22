@@ -20,7 +20,7 @@ public class PageAdapter extends FragmentPagerAdapter {
     @NonNull
     @Override
     public Fragment getItem(int position) {
-        return com.example.tablayoutapplication.PageFragment.newInstance(position + 1);
+        return PageFragment.newInstance(position + 1);
     }
 
     @Override

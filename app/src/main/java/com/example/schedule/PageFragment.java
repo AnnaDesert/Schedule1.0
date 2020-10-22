@@ -1,4 +1,4 @@
-package com.example.tablayoutapplication;
+package com.example.schedule;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -18,7 +18,7 @@ public class PageFragment extends Fragment {
     public static final String ARG_PAGE = "ARG_PAGE";
 
     private int mPage;
-    TextView text;
+    static String str="";
 
     public static PageFragment newInstance(int page) {
         Bundle args = new Bundle();
@@ -38,9 +38,11 @@ public class PageFragment extends Fragment {
     @Override public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                                        Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_page, container, false);
+        str += mPage;
         TextView text = (TextView) view;
-        text.setText("Fragment" + mPage);
-        Log.i("myTag","Add Text");
+        text.setText(str);
+        Log.i("myTag","Add Text " + str);
+        str = "";
         return view;
     }
 }
