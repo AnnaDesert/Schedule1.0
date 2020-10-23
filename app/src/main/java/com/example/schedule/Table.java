@@ -34,6 +34,13 @@ static ArrayList<Lesson> Week = new ArrayList<>();
 static ViewPager viewPager;
 static TabLayout tabLayout;
 
+public static ArrayList<Lesson> Mnd = new ArrayList<>(1);
+public static ArrayList<Lesson> Tue = new ArrayList<>(1);
+public static ArrayList<Lesson> Wed = new ArrayList<>(1);
+public static ArrayList<Lesson> Th = new ArrayList<>(1);
+public static ArrayList<Lesson> Fri = new ArrayList<>(1);
+public static ArrayList<Lesson> Sat = new ArrayList<>(1);
+
     static class SceduleTask extends AsyncTask<URL, Void, String> {
         // Вызов на получение данных из потока по указанному url
         @Override
