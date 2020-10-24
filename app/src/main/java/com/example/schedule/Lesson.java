@@ -52,12 +52,12 @@ public class Lesson {
         this.day = day;
         this.number = number;
 
-            Log.i("myTag","Lesson add " + name_lesson);
+            //Log.i("myTag","Lesson add " + name_lesson);
 
         full_name_lesson = "<b>" + this.name_lesson + "</b> " + this.special + this.type_lesson + "\n<b>" + this.Family + this.Name + this.Secondname + "</b>\n"+ this.subgroup;
         station = this.building + this.room;
 
-            Log.i("myTag","Full name " + full_name_lesson + "\nstation " + station);
+            //Log.i("myTag","Full name " + full_name_lesson + "\nstation " + station);
     }
 
     public String getFull_name_lesson(){

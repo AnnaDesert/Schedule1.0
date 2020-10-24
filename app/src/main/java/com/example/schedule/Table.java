@@ -75,7 +75,7 @@ Log.i("myTag","Connect Table " + urls[0]);
 
                     JSONObject jsonObject = new JSONObject(response);
 
-Log.i("myTag","Size response Json: " + jsonObject.length());
+//Log.i("myTag","Size response Json: " + jsonObject.length());
 
                     for (int i = 0; i < jsonObject.length(); i++) {
                         JSONObject Info = jsonObject.getJSONObject(String.valueOf(i));
@@ -91,18 +91,36 @@ Log.i("myTag","Size response Json: " + jsonObject.length());
                         Family = Info.getString("Family");
                         Name = Info.getString("Name");
                         Secondname = Info.getString("SecondName");
-Log.i("myTag","Parsing end \nsubgroup" + subgroup + "\nname " + name_lesson + "\nspecial " + special + "\ntype " + type_lesson + "\nnumber " + number + "\nday " + day + "\nkorpus " + building + "\nroom " + room);
-                            Week.add(i, new Lesson(subgroup, name_lesson, special,
+                        switch (day){
+                            case 1: Table.Mnd.add( new Lesson(subgroup, name_lesson, special,
                                     type_lesson, building,
-                                    room, Family, Name, Secondname, day, number));
-Log.i("myTag","Size Week: " + Week.size() + "\n " + Week.get(i).getFull_name_lesson() + "\n------------------------");
+                                    room, Family, Name, Secondname, day, number)); break;
+                            case 2: Table.Tue.add( new Lesson(subgroup, name_lesson, special,
+                                    type_lesson, building,
+                                    room, Family, Name, Secondname, day, number)); break;
+                            case 3: Table.Wed.add( new Lesson(subgroup, name_lesson, special,
+                                    type_lesson, building,
+                                    room, Family, Name, Secondname, day, number)); break;
+                            case 4: Table.Th.add( new Lesson(subgroup, name_lesson, special,
+                                    type_lesson, building,
+                                    room, Family, Name, Secondname, day, number)); break;
+                            case 5: Table.Fri.add( new Lesson(subgroup, name_lesson, special,
+                                    type_lesson, building,
+                                    room, Family, Name, Secondname, day, number)); break;
+                            case 6: Table.Sat.add( new Lesson(subgroup, name_lesson, special,
+                                    type_lesson, building,
+                                    room, Family, Name, Secondname, day, number)); break;
+                        }
+                        Log.i("myTag","Add inside every day");
+
+
                     }
 
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-Log.i("myTag!!!!!!!!!!!!!!!","Size Week: " + Week.size());
+//Log.i("myTag!!!!!!!!!!!!!!!","Size Week: " + Week.size());
             }
 
         }
@@ -157,7 +175,12 @@ Log.i("myTag!!!!!!!!!!!!!!!","Size Week: " + Week.size());
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Table.Week.clear();
+        Table.Mnd.clear();
+        Table.Tue.clear();
+        Table.Wed.clear();
+        Table.Th.clear();
+        Table.Fri.clear();
+        Table.Sat.clear();// ИЗМЕНИТЬ НА КАЖДЫЙ ДЕНЬ НЕДЕЛИ
 
         switch (item.getItemId()) {
             case android.R.id.home:

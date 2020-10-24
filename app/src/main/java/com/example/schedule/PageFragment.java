@@ -48,8 +48,15 @@ public class PageFragment extends Fragment {
         recyclerView = (RecyclerView) view.findViewById(R.id.tablelist);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setHasFixedSize(true);
-
-        RecyclerTable tableAdapter = new RecyclerTable(Table.Week, mPage);
+        switch (mPage){
+            case 1: Table.Week = Table.Mnd; break;
+            case 2: Table.Week = Table.Tue; break;
+            case 3: Table.Week = Table.Wed; break;
+            case 4: Table.Week = Table.Th; break;
+            case 5: Table.Week = Table.Fri; break;
+            case 6: Table.Week = Table.Sat; break;
+        }
+        RecyclerTable tableAdapter = new RecyclerTable(Table.Week);
         recyclerView.setAdapter(tableAdapter);
         //str = "";
         return view;

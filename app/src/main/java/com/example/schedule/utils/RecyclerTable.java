@@ -17,12 +17,10 @@ import com.example.schedule.Table;
 import java.util.ArrayList;
 
 public class RecyclerTable extends RecyclerView.Adapter<RecyclerTable.TableViewHolder>{
-    ArrayList<Lesson> Lesson = new ArrayList<>(8);
-    int page;
+    ArrayList<Lesson> Lesson;
 
-    public RecyclerTable(ArrayList<Lesson> Lesson, int page){
+    public RecyclerTable(ArrayList<Lesson> Lesson){
         this.Lesson = Lesson;
-        this.page = page;
     }
 
     @NonNull
