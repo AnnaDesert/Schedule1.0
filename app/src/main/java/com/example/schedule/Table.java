@@ -4,6 +4,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Html;
@@ -34,6 +35,7 @@ static ArrayList<Lesson> Week = new ArrayList<>();
 static ViewPager viewPager;
 static TabLayout tabLayout;
 
+public static String Time[] = new String[] { " ","8:30 - 10:00","10:10 - 11:40","12:00 - 13:30", "13:40 - 15:10", "15:20 - 16:50", "17:00 - 18:30", "18:40 – 20:10", " 20:15 – 21:45"};
 public static ArrayList<Lesson> Mnd = new ArrayList<>(1);
 public static ArrayList<Lesson> Tue = new ArrayList<>(1);
 public static ArrayList<Lesson> Wed = new ArrayList<>(1);
@@ -41,7 +43,7 @@ public static ArrayList<Lesson> Th = new ArrayList<>(1);
 public static ArrayList<Lesson> Fri = new ArrayList<>(1);
 public static ArrayList<Lesson> Sat = new ArrayList<>(1);
 
-    static class SceduleTask extends AsyncTask<URL, Void, String> {
+    class SceduleTask extends AsyncTask<URL, Void, String> {
         // Вызов на получение данных из потока по указанному url
         @Override
         protected String doInBackground(URL... urls) {
@@ -111,18 +113,21 @@ Log.i("myTag","Connect Table " + urls[0]);
                                     type_lesson, building,
                                     room, Family, Name, Secondname, day, number)); break;
                         }
-                        Log.i("myTag","Add inside every day");
-
-
                     }
-
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+                Log.i("myTag","Size Mnd " + Table.Mnd.size());
+                Log.i("myTag","Size Tue " + Table.Tue.size());
+                Log.i("myTag","Size Wed " + Table.Wed.size());
+                Log.i("myTag","Size Th " + Table.Th.size());
+                Log.i("myTag","Size Fri " + Table.Fri.size());
+                Log.i("myTag","Size Sat " + Table.Sat.size());
 //Log.i("myTag!!!!!!!!!!!!!!!","Size Week: " + Week.size());
             }
-
+            viewPager.setAdapter(new PageAdapter(getSupportFragmentManager(),Table.this));
+            tabLayout.setupWithViewPager(viewPager);
         }
     }
 
@@ -130,6 +135,8 @@ Log.i("myTag","Connect Table " + urls[0]);
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_table);
+
+        Table.GGManager.setContext(this);
 
         viewPager = findViewById(R.id.viewpager);
         tabLayout = findViewById(R.id.sliding_tabs);
@@ -144,10 +151,15 @@ Log.i("myTag","Connect Table " + urls[0]);
         //text.setText(groupurl); // enter id group for check it out
         URL generatedUrl = generateURL("/" + groupurl + "//" + DateMonday(), "printschedule");
         //new MainActivity.QueryTask().execute(generatedUrl);
+        Table.Mnd.add(new Lesson("0", "Предмет", "", "", "","", "", "", "", 1, 1));
+        Table.Tue.add(new Lesson("0", "Предмет", "", "", "","", "", "", "", 1, 1));
+        Table.Wed.add(new Lesson("0", "Предмет", "", "", "","", "", "", "", 1, 1));
+        Table.Th.add(new Lesson("0", "Предмет", "", "", "","", "", "", "", 1, 1));
+        Table.Fri.add(new Lesson("0", "Предмет", "", "", "","", "", "", "", 1, 1));
+        Table.Sat.add(new Lesson("0", "Предмет", "", "", "","", "", "", "", 1, 1));
         new SceduleTask().execute(generatedUrl);
 
-        viewPager.setAdapter(new PageAdapter(getSupportFragmentManager(),Table.this));
-        tabLayout.setupWithViewPager(viewPager);
+
 
         Log.i("myTag","Add ViewPage inside Tab");
     }
@@ -195,6 +207,18 @@ Log.i("myTag","Exit Table t = " + MainActivity.t + " adress " + CreateNewListOfB
     public void onBackPressed() {
         finishAffinity();
         return;
+    }
+
+    public static class GGManager {
+        private static Context context;
+
+        public static Context getContext() {
+            return context;
+        }
+
+        public static void setContext(Context context) {
+            Table.GGManager.context = context;
+        }
     }
 
 }

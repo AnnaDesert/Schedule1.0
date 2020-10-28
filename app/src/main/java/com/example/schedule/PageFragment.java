@@ -5,16 +5,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TableLayout;
-import android.widget.TableRow;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.schedule.R;
 import com.example.schedule.utils.RecyclerTable;
 
 public class PageFragment extends Fragment {
@@ -42,9 +37,6 @@ public class PageFragment extends Fragment {
     @Override public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                                        Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_page, container, false);
-        //str += mPage;
-        //TextView text = (TextView) view;
-        //text.setText(str);
         recyclerView = (RecyclerView) view.findViewById(R.id.tablelist);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setHasFixedSize(true);
@@ -56,9 +48,10 @@ public class PageFragment extends Fragment {
             case 5: Table.Week = Table.Fri; break;
             case 6: Table.Week = Table.Sat; break;
         }
-        RecyclerTable tableAdapter = new RecyclerTable(Table.Week);
+        RecyclerTable tableAdapter = new RecyclerTable(Table.Week, Table.Week.size());
+        //Log.i("muTag","Size Week: " + Table.Week.size());
+        //RecyclerTable tableAdapter = new RecyclerTable(Table.Week, Table.Week.get(Table.Week.size()-1).getNumber());
         recyclerView.setAdapter(tableAdapter);
-        //str = "";
         return view;
     }
 }

@@ -5,9 +5,9 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 
-public class PageAdapter extends FragmentPagerAdapter {
+public class PageAdapter extends FragmentStatePagerAdapter {
     final int PAGE_COUNT = 6;
     private String tabTitles[] = new String[] { "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"};
     private Context context;

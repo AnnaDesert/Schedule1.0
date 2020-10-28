@@ -41,8 +41,11 @@ public class Lesson {
             this.building = "Корпус " + building + "\n";
 
         if(!room.equals("ДОТ")&&!room.equals(""))
-        this.room = "ауд" + room;
-        this.Family = Family + " ";
+            this.room = "ауд " + room;
+        else
+            this.room = room;
+        this.Family = Family + " \n";
+
 
         if(!Name.equals(""))
             this.Name = Name.charAt(0) + ". ";

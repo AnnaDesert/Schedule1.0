@@ -1,5 +1,6 @@
 package com.example.schedule.utils;
 
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.schedule.Lesson;
-import com.example.schedule.MainActivity;
 import com.example.schedule.R;
 import com.example.schedule.Table;
 
@@ -18,9 +18,11 @@ import java.util.ArrayList;
 
 public class RecyclerTable extends RecyclerView.Adapter<RecyclerTable.TableViewHolder>{
     ArrayList<Lesson> Lesson;
-
-    public RecyclerTable(ArrayList<Lesson> Lesson){
+    int i;
+    public RecyclerTable(ArrayList<Lesson> Lesson, int i){
         this.Lesson = Lesson;
+        this.i = i;
+
     }
 
     @NonNull
@@ -32,15 +34,21 @@ public class RecyclerTable extends RecyclerView.Adapter<RecyclerTable.TableViewH
 
     @Override
     public void onBindViewHolder(@NonNull TableViewHolder holder, int position) {
-        holder.textTime.setText("Время");
-
-        if(true) {
-            holder.textLesson.setText("");
-            Log.i("myTag","Set text on position " + position);
+        if(position%2 != 0){
+            holder.textTime.setBackgroundResource(R.color.TextTime2);
+            holder.textLesson.setBackgroundResource(R.color.TextTime2);
+            holder.textKorpus.setBackgroundResource(R.color.TextTime2);
         }
-        else holder.textLesson.setText("Предмет");
+        if(position < i) {
+            holder.textLesson.setText(Html.fromHtml(Lesson.get(position).getFull_name_lesson()));
+            holder.textKorpus.setText(Lesson.get(position).getStation());
+        }
+        else{
+            holder.textLesson.setText("        -----------");
+            holder.textKorpus.setText("         ------");
+        }
+        holder.textTime.setText(Table.Time[position]);
 
-        holder.textKorpus.setText("Корпус");
     }
 
     @Override
