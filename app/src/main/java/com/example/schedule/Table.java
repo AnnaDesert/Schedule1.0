@@ -4,6 +4,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.ClipData;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -153,7 +154,7 @@ Log.i("myTag","Connect Table " + urls[0]);
         tabLayout = findViewById(R.id.sliding_tabs);
         Log.i("myTag","Add ViewPage and Tab");
 
-        ActionBar actionBar =getSupportActionBar();
+        ActionBar actionBar = getSupportActionBar();
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
@@ -163,8 +164,6 @@ Log.i("myTag","Connect Table " + urls[0]);
         generatedUrl = generateURL("/" + groupurl + "//" + DateMonday(), "printschedule");
         //new MainActivity.QueryTask().execute(generatedUrl);
         WeekAdd();
-
-
 
         sizeDay = new int[] {1,1,1,1,1,1};
 
