@@ -9,6 +9,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TableLayout;
 import android.widget.TextView;
@@ -34,6 +35,8 @@ static ArrayList<Lesson> Week = new ArrayList<>();
 
 static ViewPager viewPager;
 static TabLayout tabLayout;
+static long timestamp;
+static URL generatedUrl;
 
 public static String Time[] = new String[] { "Время","8:30\n  -\n10:00","10:10\n  -\n11:40","12:00 \n  -\n13:30", "13:40\n  -\n15:10", "15:20\n  -\n16:50", "17:00\n  -\n18:30", "18:40\n  -\n20:10", "20:15\n  -\n21:45"};
 public static Lesson Lesson_first = new Lesson("0", "", "", "", "","", "", "", "", 0, 0);
@@ -157,25 +160,17 @@ Log.i("myTag","Connect Table " + urls[0]);
         Bundle extras = getIntent().getExtras();
         groupurl = extras.getString("GROUPURL"); // get id group
         //text.setText(groupurl); // enter id group for check it out
-        URL generatedUrl = generateURL("/" + groupurl + "//" + DateMonday(), "printschedule");
+        generatedUrl = generateURL("/" + groupurl + "//" + DateMonday(), "printschedule");
         //new MainActivity.QueryTask().execute(generatedUrl);
-        for(int Les = 0; Les < 9; Les++){
-            Table.Mnd.add(Lesson_first);
-            Table.Tue.add(Lesson_first);
-            Table.Wed.add(Lesson_first);
-            Table.Th.add(Lesson_first);
-            Table.Fri.add(Lesson_first);
-            Table.Sat.add(Lesson_first);
-        }
+        WeekAdd();
+
+
 
         sizeDay = new int[] {1,1,1,1,1,1};
+
         new SceduleTask().execute(generatedUrl);
-
-
-
         Log.i("myTag","Add ViewPage inside Tab");
     }
-
 
 
     ////////////////////////////////////////////
@@ -192,10 +187,28 @@ Log.i("myTag","Connect Table " + urls[0]);
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MILLISECOND, 0);
 
-        long timestamp = calendar.getTimeInMillis();
+        timestamp = calendar.getTimeInMillis();
 
         return timestamp + "/";
     }
+
+public static void WeekAdd(){
+    for(int Les = 0; Les < 9; Les++){
+        Table.Mnd.add(Lesson_first);
+        Table.Tue.add(Lesson_first);
+        Table.Wed.add(Lesson_first);
+        Table.Th.add(Lesson_first);
+        Table.Fri.add(Lesson_first);
+        Table.Sat.add(Lesson_first);
+    }
+}
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -206,16 +219,26 @@ Log.i("myTag","Connect Table " + urls[0]);
         Table.Fri.clear();
         Table.Sat.clear();
         sizeDay = new int[] {1,1,1,1,1,1};
-
         switch (item.getItemId()) {
             case android.R.id.home:
                 MainActivity.t = 3;
-                //Log.i("myTag","Exit Table t = " + MainActivity.t + " adress " + CreateNewListOfButton.url_adress[2]);
                 this.finish();
-                return true;
+                break;
+            case R.id.item1: timestamp-=604800000;
+                generatedUrl = generateURL("/" + groupurl + "//" + timestamp + "/", "printschedule");
+                WeekAdd();
+                new SceduleTask().execute(generatedUrl);
+                break;
+            case R.id.item2: timestamp+=604800000;
+                generatedUrl = generateURL("/" + groupurl + "//" + timestamp + "/", "printschedule");
+                WeekAdd();
+                new SceduleTask().execute(generatedUrl);
+                break;
             default:
                 return super.onOptionsItemSelected(item);
         }
+
+        return true;
     }
 
     public void onBackPressed() {
