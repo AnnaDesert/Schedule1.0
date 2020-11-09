@@ -35,13 +35,15 @@ static ArrayList<Lesson> Week = new ArrayList<>();
 static ViewPager viewPager;
 static TabLayout tabLayout;
 
-public static String Time[] = new String[] { " ","8:30 - 10:00","10:10 - 11:40","12:00 - 13:30", "13:40 - 15:10", "15:20 - 16:50", "17:00 - 18:30", "18:40 – 20:10", " 20:15 – 21:45"};
+public static String Time[] = new String[] { "Время","8:30\n  -\n10:00","10:10\n  -\n11:40","12:00 \n  -\n13:30", "13:40\n  -\n15:10", "15:20\n  -\n16:50", "17:00\n  -\n18:30", "18:40\n  -\n20:10", "20:15\n  -\n21:45"};
+public static Lesson Lesson_first = new Lesson("0", "", "", "", "","", "", "", "", 0, 0);
 public static ArrayList<Lesson> Mnd = new ArrayList<>(1);
 public static ArrayList<Lesson> Tue = new ArrayList<>(1);
 public static ArrayList<Lesson> Wed = new ArrayList<>(1);
 public static ArrayList<Lesson> Th = new ArrayList<>(1);
 public static ArrayList<Lesson> Fri = new ArrayList<>(1);
 public static ArrayList<Lesson> Sat = new ArrayList<>(1);
+public static int[] sizeDay = new int[] {1,1,1,1,1,1};
 
     class SceduleTask extends AsyncTask<URL, Void, String> {
         // Вызов на получение данных из потока по указанному url
@@ -94,24 +96,30 @@ Log.i("myTag","Connect Table " + urls[0]);
                         Name = Info.getString("Name");
                         Secondname = Info.getString("SecondName");
                         switch (day){
-                            case 1: Table.Mnd.add( new Lesson(subgroup, name_lesson, special,
+                            case 1: Table.Mnd.set(number, new Lesson(subgroup, name_lesson, special,
                                     type_lesson, building,
-                                    room, Family, Name, Secondname, day, number)); break;
-                            case 2: Table.Tue.add( new Lesson(subgroup, name_lesson, special,
+                                    room, Family, Name, Secondname, day, number));
+                                    sizeDay[0] = number; break;
+                            case 2: Table.Tue.set(number, new Lesson(subgroup, name_lesson, special,
                                     type_lesson, building,
-                                    room, Family, Name, Secondname, day, number)); break;
-                            case 3: Table.Wed.add( new Lesson(subgroup, name_lesson, special,
+                                    room, Family, Name, Secondname, day, number));
+                                    sizeDay[1] = number; break;
+                            case 3: Table.Wed.set(number, new Lesson(subgroup, name_lesson, special,
                                     type_lesson, building,
-                                    room, Family, Name, Secondname, day, number)); break;
-                            case 4: Table.Th.add( new Lesson(subgroup, name_lesson, special,
+                                    room, Family, Name, Secondname, day, number));
+                                    sizeDay[2] = number; break;
+                            case 4: Table.Th.set(number, new Lesson(subgroup, name_lesson, special,
                                     type_lesson, building,
-                                    room, Family, Name, Secondname, day, number)); break;
-                            case 5: Table.Fri.add( new Lesson(subgroup, name_lesson, special,
+                                    room, Family, Name, Secondname, day, number));
+                                    sizeDay[3] = number; break;
+                            case 5: Table.Fri.set(number, new Lesson(subgroup, name_lesson, special,
                                     type_lesson, building,
-                                    room, Family, Name, Secondname, day, number)); break;
-                            case 6: Table.Sat.add( new Lesson(subgroup, name_lesson, special,
+                                    room, Family, Name, Secondname, day, number));
+                                    sizeDay[4] = number; break;
+                            case 6: Table.Sat.set(number, new Lesson(subgroup, name_lesson, special,
                                     type_lesson, building,
-                                    room, Family, Name, Secondname, day, number)); break;
+                                    room, Family, Name, Secondname, day, number));
+                                    sizeDay[5]++; break;
                         }
                     }
 
@@ -151,12 +159,16 @@ Log.i("myTag","Connect Table " + urls[0]);
         //text.setText(groupurl); // enter id group for check it out
         URL generatedUrl = generateURL("/" + groupurl + "//" + DateMonday(), "printschedule");
         //new MainActivity.QueryTask().execute(generatedUrl);
-        Table.Mnd.add(new Lesson("0", "Предмет", "", "", "","", "", "", "", 1, 1));
-        Table.Tue.add(new Lesson("0", "Предмет", "", "", "","", "", "", "", 1, 1));
-        Table.Wed.add(new Lesson("0", "Предмет", "", "", "","", "", "", "", 1, 1));
-        Table.Th.add(new Lesson("0", "Предмет", "", "", "","", "", "", "", 1, 1));
-        Table.Fri.add(new Lesson("0", "Предмет", "", "", "","", "", "", "", 1, 1));
-        Table.Sat.add(new Lesson("0", "Предмет", "", "", "","", "", "", "", 1, 1));
+        for(int Les = 0; Les < 9; Les++){
+            Table.Mnd.add(Lesson_first);
+            Table.Tue.add(Lesson_first);
+            Table.Wed.add(Lesson_first);
+            Table.Th.add(Lesson_first);
+            Table.Fri.add(Lesson_first);
+            Table.Sat.add(Lesson_first);
+        }
+
+        sizeDay = new int[] {1,1,1,1,1,1};
         new SceduleTask().execute(generatedUrl);
 
 
@@ -192,18 +204,20 @@ Log.i("myTag","Connect Table " + urls[0]);
         Table.Wed.clear();
         Table.Th.clear();
         Table.Fri.clear();
-        Table.Sat.clear();// ИЗМЕНИТЬ НА КАЖДЫЙ ДЕНЬ НЕДЕЛИ
+        Table.Sat.clear();
+        sizeDay = new int[] {1,1,1,1,1,1};
 
         switch (item.getItemId()) {
             case android.R.id.home:
                 MainActivity.t = 3;
-Log.i("myTag","Exit Table t = " + MainActivity.t + " adress " + CreateNewListOfButton.url_adress[2]);
+                //Log.i("myTag","Exit Table t = " + MainActivity.t + " adress " + CreateNewListOfButton.url_adress[2]);
                 this.finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
+
     public void onBackPressed() {
         finishAffinity();
         return;

@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TableLayout;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -48,7 +49,7 @@ public class PageFragment extends Fragment {
             case 5: Table.Week = Table.Fri; break;
             case 6: Table.Week = Table.Sat; break;
         }
-        RecyclerTable tableAdapter = new RecyclerTable(Table.Week, Table.Week.size());
+        RecyclerTable tableAdapter = new RecyclerTable(Table.Week, Table.Week.size(), Table.sizeDay[mPage-1]);
         //Log.i("muTag","Size Week: " + Table.Week.size());
         //RecyclerTable tableAdapter = new RecyclerTable(Table.Week, Table.Week.get(Table.Week.size()-1).getNumber());
         recyclerView.setAdapter(tableAdapter);

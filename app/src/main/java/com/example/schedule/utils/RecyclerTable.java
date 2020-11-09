@@ -19,9 +19,11 @@ import java.util.ArrayList;
 public class RecyclerTable extends RecyclerView.Adapter<RecyclerTable.TableViewHolder>{
     ArrayList<Lesson> Lesson;
     int i;
-    public RecyclerTable(ArrayList<Lesson> Lesson, int i){
+    int sizeDay;
+    public RecyclerTable(ArrayList<Lesson> Lesson, int i, int sizeDay){
         this.Lesson = Lesson;
         this.i = i;
+        this.sizeDay = sizeDay;
 
     }
 
@@ -39,21 +41,23 @@ public class RecyclerTable extends RecyclerView.Adapter<RecyclerTable.TableViewH
             holder.textLesson.setBackgroundResource(R.color.TextTime2);
             holder.textKorpus.setBackgroundResource(R.color.TextTime2);
         }
-        if(position < i) {
-            holder.textLesson.setText(Html.fromHtml(Lesson.get(position).getFull_name_lesson()));
-            holder.textKorpus.setText(Lesson.get(position).getStation());
-        }
-        else{
+        if((Lesson.get(position).getFull_name_lesson().equals(Table.Lesson_first.getFull_name_lesson()))&&(position!=0)) {
             holder.textLesson.setText("        -----------");
             holder.textKorpus.setText("         ------");
         }
+        else{
+            holder.textLesson.setText(Html.fromHtml(Lesson.get(position).getFull_name_lesson()));
+            holder.textKorpus.setText(Lesson.get(position).getStation());
+        }
+        if(position == 0){
+            holder.textLesson.setText("       Предмет");
+        }
         holder.textTime.setText(Table.Time[position]);
-
     }
 
     @Override
     public int getItemCount() {
-        return 8;
+        return sizeDay+2;
     }
 
     //////////////////////////////////////////////////////

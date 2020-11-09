@@ -20,7 +20,7 @@
         android:layout_height="0px"
         android:id="@+id/viewpager"
         android:layout_weight="1"
-        android:background="@android:color/white"
+        android:background="@color/textTime"
         />
 
 </LinearLayout>

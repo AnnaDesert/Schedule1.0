@@ -44,7 +44,7 @@ public class Lesson {
             this.room = "ауд " + room;
         else
             this.room = room;
-        this.Family = Family + " \n";
+        this.Family = Family + "\n";
 
 
         if(!Name.equals(""))
