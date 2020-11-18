@@ -38,7 +38,7 @@ public class Lesson {
         if(building.equals("0"))
             this.building = "";
         else
-            this.building = "Корпус " + building + "\n";
+            this.building = "Кор. " + building + "\n";
 
         if(!room.equals("ДОТ")&&!room.equals(""))
             this.room = "ауд " + room;
@@ -57,7 +57,7 @@ public class Lesson {
 
             //Log.i("myTag","Lesson add " + name_lesson);
 
-        full_name_lesson = "<b>" + this.name_lesson + "</b> " + this.special + this.type_lesson + "\n<b>" + this.Family + this.Name + this.Secondname + "</b>\n"+ this.subgroup;
+        full_name_lesson = "<b>" + this.name_lesson + "</b> " + this.special + this.type_lesson + "<br><b>" + this.Family + this.Name + this.Secondname + "</b>\n"+ this.subgroup;
         station = this.building + this.room;
 
             //Log.i("myTag","Full name " + full_name_lesson + "\nstation " + station);
@@ -74,6 +74,8 @@ public class Lesson {
     public int getDay(){ return day; }
 
     public  int getNumber(){ return number; }
+
+    public void addLesson(String name){ full_name_lesson+="<br>---------<br>"; full_name_lesson+=name;}
 
 
 }

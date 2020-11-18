@@ -76,7 +76,6 @@ Log.i("myTag","Connect Table " + urls[0]);
             int number;
             int day;
 
-
             if(response.equals("[]"))   { Log.i("myTag","NuLL"); }
             else {
                 try {
@@ -112,9 +111,15 @@ Log.i("myTag","Connect Table " + urls[0]);
                                     type_lesson, building,
                                     room, Family, Name, Secondname, day, number));
                                     sizeDay[2] = number; break;
-                            case 4: Table.Th.set(number, new Lesson(subgroup, name_lesson, special,
-                                    type_lesson, building,
-                                    room, Family, Name, Secondname, day, number));
+                            case 4: if(Table.Th.get(number).getNumber()!=number){
+                                        Table.Th.set(number, new Lesson(subgroup, name_lesson, special,
+                                        type_lesson, building,
+                                        room, Family, Name, Secondname, day, number));
+                                    }else{
+                                        Table.Th.get(number).addLesson(new Lesson(subgroup, name_lesson, special,
+                                                type_lesson, building,
+                                                room, Family, Name, Secondname, day, number).getFull_name_lesson());
+                                    }
                                     sizeDay[3] = number; break;
                             case 5: Table.Fri.set(number, new Lesson(subgroup, name_lesson, special,
                                     type_lesson, building,

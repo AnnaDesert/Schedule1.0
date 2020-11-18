@@ -42,8 +42,8 @@ public class RecyclerTable extends RecyclerView.Adapter<RecyclerTable.TableViewH
             holder.textKorpus.setBackgroundResource(R.color.TextTime2);
         }
         if((Lesson.get(position).getFull_name_lesson().equals(Table.Lesson_first.getFull_name_lesson()))&&(position!=0)) {
-            holder.textLesson.setText("        -----------");
-            holder.textKorpus.setText("         ------");
+            holder.textLesson.setText("");
+            holder.textKorpus.setText("");
         }
         else{
             holder.textLesson.setText(Html.fromHtml(Lesson.get(position).getFull_name_lesson()));
