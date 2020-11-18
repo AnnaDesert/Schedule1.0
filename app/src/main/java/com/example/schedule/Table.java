@@ -99,36 +99,84 @@ Log.i("myTag","Connect Table " + urls[0]);
                         Name = Info.getString("Name");
                         Secondname = Info.getString("SecondName");
                         switch (day){
-                            case 1: Table.Mnd.set(number, new Lesson(subgroup, name_lesson, special,
-                                    type_lesson, building,
-                                    room, Family, Name, Secondname, day, number));
-                                    sizeDay[0] = number; break;
-                            case 2: Table.Tue.set(number, new Lesson(subgroup, name_lesson, special,
-                                    type_lesson, building,
-                                    room, Family, Name, Secondname, day, number));
-                                    sizeDay[1] = number; break;
-                            case 3: Table.Wed.set(number, new Lesson(subgroup, name_lesson, special,
-                                    type_lesson, building,
-                                    room, Family, Name, Secondname, day, number));
-                                    sizeDay[2] = number; break;
+                            case 1: if(Table.Mnd.get(number).getNumber()!=number){
+                                    Table.Mnd.set(number, new Lesson(subgroup, name_lesson, special,
+                                        type_lesson, building,
+                                        room, Family, Name, Secondname, day, number));
+                                    sizeDay[0] = number;
+                                    }else{
+                                        Table.Mnd.get(number).addLesson(new Lesson(subgroup, name_lesson, special,
+                                                type_lesson, building,
+                                                room, Family, Name, Secondname, day, number).getFull_name_lesson(), new Lesson(subgroup, name_lesson, special,
+                                                type_lesson, building,
+                                                room, Family, Name, Secondname, day, number).getStation());
+                                    }
+                                    break;
+                            case 2: if(Table.Tue.get(number).getNumber()!=number){
+                                    Table.Tue.set(number, new Lesson(subgroup, name_lesson, special,
+                                        type_lesson, building,
+                                        room, Family, Name, Secondname, day, number));
+                                    sizeDay[1] = number;
+                                    }else{
+                                        Table.Tue.get(number).addLesson(new Lesson(subgroup, name_lesson, special,
+                                                type_lesson, building,
+                                                room, Family, Name, Secondname, day, number).getFull_name_lesson(), new Lesson(subgroup, name_lesson, special,
+                                                type_lesson, building,
+                                                room, Family, Name, Secondname, day, number).getStation());
+                                    }
+                                    break;
+                            case 3: if(Table.Wed.get(number).getNumber()!=number){
+                                        Table.Wed.set(number, new Lesson(subgroup, name_lesson, special,
+                                        type_lesson, building,
+                                        room, Family, Name, Secondname, day, number));
+                                        sizeDay[2] = number;
+                                    }else{
+                                        Table.Wed.get(number).addLesson(new Lesson(subgroup, name_lesson, special,
+                                                type_lesson, building,
+                                                room, Family, Name, Secondname, day, number).getFull_name_lesson(), new Lesson(subgroup, name_lesson, special,
+                                                type_lesson, building,
+                                                room, Family, Name, Secondname, day, number).getStation());
+                                    }
+                                    break;
                             case 4: if(Table.Th.get(number).getNumber()!=number){
                                         Table.Th.set(number, new Lesson(subgroup, name_lesson, special,
                                         type_lesson, building,
                                         room, Family, Name, Secondname, day, number));
+                                         sizeDay[3] = number;
                                     }else{
                                         Table.Th.get(number).addLesson(new Lesson(subgroup, name_lesson, special,
                                                 type_lesson, building,
-                                                room, Family, Name, Secondname, day, number).getFull_name_lesson());
+                                                room, Family, Name, Secondname, day, number).getFull_name_lesson(), new Lesson(subgroup, name_lesson, special,
+                                                type_lesson, building,
+                                                room, Family, Name, Secondname, day, number).getStation());
                                     }
-                                    sizeDay[3] = number; break;
-                            case 5: Table.Fri.set(number, new Lesson(subgroup, name_lesson, special,
-                                    type_lesson, building,
-                                    room, Family, Name, Secondname, day, number));
-                                    sizeDay[4] = number; break;
-                            case 6: Table.Sat.set(number, new Lesson(subgroup, name_lesson, special,
-                                    type_lesson, building,
-                                    room, Family, Name, Secondname, day, number));
-                                    sizeDay[5]++; break;
+                                    break;
+                            case 5: if(Table.Fri.get(number).getNumber()!=number){
+                                        Table.Fri.set(number, new Lesson(subgroup, name_lesson, special,
+                                        type_lesson, building,
+                                        room, Family, Name, Secondname, day, number));
+                                        sizeDay[4] = number;
+                                    }else{
+                                        Table.Fri.get(number).addLesson(new Lesson(subgroup, name_lesson, special,
+                                                type_lesson, building,
+                                                room, Family, Name, Secondname, day, number).getFull_name_lesson(), new Lesson(subgroup, name_lesson, special,
+                                                type_lesson, building,
+                                                room, Family, Name, Secondname, day, number).getStation());
+                                    }
+                                    break;
+                            case 6: if(Table.Sat.get(number).getNumber()!=number){
+                                        Table.Sat.set(number, new Lesson(subgroup, name_lesson, special,
+                                        type_lesson, building,
+                                        room, Family, Name, Secondname, day, number));
+                                        sizeDay[5]++;
+                                    }else{
+                                        Table.Sat.get(number).addLesson(new Lesson(subgroup, name_lesson, special,
+                                            type_lesson, building,
+                                            room, Family, Name, Secondname, day, number).getFull_name_lesson(), new Lesson(subgroup, name_lesson, special,
+                                                type_lesson, building,
+                                                room, Family, Name, Secondname, day, number).getStation());
+                                    }
+                                    break;
                         }
                     }
 

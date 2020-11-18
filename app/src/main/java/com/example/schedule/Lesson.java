@@ -75,7 +75,7 @@ public class Lesson {
 
     public  int getNumber(){ return number; }
 
-    public void addLesson(String name){ full_name_lesson+="<br>---------<br>"; full_name_lesson+=name;}
+    public void addLesson(String name, String place){ full_name_lesson+="<br>---------<br>"; full_name_lesson+=name; station+="<br>-----<br>"; station+=place;}
 
 
 }

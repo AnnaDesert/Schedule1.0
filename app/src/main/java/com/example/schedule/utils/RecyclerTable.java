@@ -47,7 +47,7 @@ public class RecyclerTable extends RecyclerView.Adapter<RecyclerTable.TableViewH
         }
         else{
             holder.textLesson.setText(Html.fromHtml(Lesson.get(position).getFull_name_lesson()));
-            holder.textKorpus.setText(Lesson.get(position).getStation());
+            holder.textKorpus.setText(Html.fromHtml(Lesson.get(position).getStation()));
         }
         if(position == 0){
             holder.textLesson.setText("       Предмет");
